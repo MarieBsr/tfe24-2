@@ -4,6 +4,12 @@
 #include "CLI/CLI.hpp"
 #include "config.h"
 
+int globalVar = 1;
+
+void foo() {
+    fmt::print("Hello from foo!\n");
+}
+
 auto main(int argc, char **argv) -> int
 {
     /**
@@ -28,7 +34,25 @@ auto main(int argc, char **argv) -> int
      */
     fmt::print("Hello, {}!\n", app.get_name());
 
-    /* INSERT YOUR CODE HERE */
+    fmt::print("\n=== Part 1: Global Variable (Data Segment) ===\n");
+    fmt::print("Value of globalVar: {}\n", globalVar);
+    fmt::print("Address of globalVar: {}\n\n", fmt::ptr(&globalVar));
+
+    fmt::print("=== Part 2: Local Variable (Stack) ===\n");
+    int localVar = 2;
+    fmt::print("Value of localVar: {}\n", localVar);
+    fmt::print("Address of localVar: {}\n\n", fmt::ptr(&localVar));
+
+    fmt::print("=== Part 3: Dynamically Allocated Variable (Heap) ===\n");
+    int* heapVar = new int(3);
+    fmt::print("Value of *heapVar: {}\n", *heapVar);
+    fmt::print("Address stored in heapVar (heap memory location): {}\n", fmt::ptr(heapVar));
+    delete heapVar;  
+    fmt::print("Heap memory released.\n\n");
+
+    fmt::print("=== Part 4: Function (Code Segment) ===\n");
+    foo();
+    fmt::print("Address of function foo: {}\n", fmt::ptr(&foo));
 
     return 0; /* exit gracefully*/
 }

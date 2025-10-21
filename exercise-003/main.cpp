@@ -1,9 +1,22 @@
 #include <fmt/chrono.h>
 #include <fmt/format.h>
+
 #include <random>
+#include <vector>
+#include <algorithm>
 
 #include "CLI/CLI.hpp"
 #include "config.h"
+
+void print_vector(const std::vector<int> &vec, const std::string &label = "Vector")
+{
+    fmt::print("{} ({} Values):\n", label, vec.size());
+    for (auto value : vec)
+    {
+        fmt::print("{} ", value);
+    }
+    fmt::print("\n\n");
+}
 
 auto main(int argc, char **argv) -> int
 {
@@ -42,12 +55,7 @@ auto main(int argc, char **argv) -> int
 
     std::generate(numbers.begin(), numbers.end(), [&]() { return dist(gen); });
 
-    fmt::print("randomValues:\n");
-    for (auto n : numbers)
-    {
-        fmt::print("{} ", n);
-    }
-    fmt::print("\n");
+    print_vector(numbers, "randomValues");
 
     return 0; /* exit gracefully*/
 }

@@ -4,6 +4,7 @@
 #include <random>
 #include <vector>
 #include <algorithm>
+#include <chrono>  
 
 #include "CLI/CLI.hpp"
 #include "config.h"
@@ -26,8 +27,8 @@ auto main(int argc, char **argv) -> int
      */
     CLI::App app{PROJECT_NAME};
     
-    int count = 20;
-    app.add_option("-c,--count", count, "number of repetitions")->default_val(20);
+    int count = 500;
+    app.add_option("-c,--count", count, "number of repetitions")->default_val(500);
 
     try
     {
@@ -56,8 +57,14 @@ auto main(int argc, char **argv) -> int
     std::generate(numbers.begin(), numbers.end(), [&]() { return dist(gen); });
 
     print_vector(numbers, "random Values");
+
+    auto start = std::chrono::system_clock::now();
     std::sort(numbers.begin(), numbers.end());
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
     print_vector(numbers, "random Values (sorted)");
+    fmt::print("time of sorting process: {} ms\n", elapsed.count());
 
     return 0; /* exit gracefully*/
 }

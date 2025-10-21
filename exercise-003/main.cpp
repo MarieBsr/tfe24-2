@@ -1,5 +1,6 @@
 #include <fmt/chrono.h>
 #include <fmt/format.h>
+#include <random>
 
 #include "CLI/CLI.hpp"
 #include "config.h"
@@ -33,7 +34,20 @@ auto main(int argc, char **argv) -> int
     fmt::print("Hello, {}!\n", app.get_name());
     fmt::print("Count parameter = {}\n", count);
 
-    /* INSERT YOUR CODE HERE */
+     std::vector<int> numbers(count);
+
+    std::random_device rd;                               
+    std::mt19937 gen(rd());                              
+    std::uniform_int_distribution<> dist(1, 100);        
+
+    std::generate(numbers.begin(), numbers.end(), [&]() { return dist(gen); });
+
+    fmt::print("randomValues:\n");
+    for (auto n : numbers)
+    {
+        fmt::print("{} ", n);
+    }
+    fmt::print("\n");
 
     return 0; /* exit gracefully*/
 }

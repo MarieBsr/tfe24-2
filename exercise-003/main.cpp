@@ -55,7 +55,9 @@ auto main(int argc, char **argv) -> int
 
     std::generate(numbers.begin(), numbers.end(), [&]() { return dist(gen); });
 
-    print_vector(numbers, "randomValues");
+    print_vector(numbers, "random Values");
+    std::sort(numbers.begin(), numbers.end());
+    print_vector(numbers, "random Values (sorted)");
 
     return 0; /* exit gracefully*/
 }

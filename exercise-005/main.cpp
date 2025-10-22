@@ -5,9 +5,29 @@
 
 #include "CLI/CLI.hpp"
 #include "config.h"
+#include "point.hpp"
+
 
 // for convenience
 using json = nlohmann::json;
+
+Point::Point() : x(0), y(0) {}
+Point::Point(int x_val, int y_val) : x(x_val), y(y_val) {}
+
+void Point::move(int dx, int dy) {
+    x += dx;
+    y += dy;
+}
+
+void Point::print() const {
+    fmt::print("({}, {})\n", x, y);
+}
+
+double Point::distance_to(const Point& other) const {
+    double dx = static_cast<double>(x) - static_cast<double>(other.x);
+    double dy = static_cast<double>(y) - static_cast<double>(other.y);
+    return std::sqrt(dx*dx + dy*dy);
+}
 
 auto main(int argc, char **argv) -> int
 {
@@ -33,7 +53,14 @@ auto main(int argc, char **argv) -> int
      */
     fmt::print("Hello, {}!\n", app.get_name());
 
-    /* INSERT YOUR CODE HERE */
+    Point p1(2, 3);
+    p1.print();      
+    p1.move(1, -1);
+    p1.print();      
+
+    Point p2;
+    p2.print();      
+
 
     return 0; /* exit gracefully*/
 }

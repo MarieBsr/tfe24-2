@@ -4,6 +4,30 @@
 #include "CLI/CLI.hpp"
 #include "config.h"
 
+class Point
+{
+private:
+    int x;
+    int y;
+
+public:
+    Point() : x(0), y(0) {}
+
+    Point(int x_val, int y_val) : x(x_val), y(y_val) {}
+
+    void move(int dx, int dy)
+    {
+        x += dx;
+        y += dy;
+    }
+
+    void print() const
+    {
+        fmt::print("({}, {})\n", x, y);
+    }
+};
+
+
 auto main(int argc, char **argv) -> int
 {
     /**
@@ -28,7 +52,14 @@ auto main(int argc, char **argv) -> int
      */
     fmt::print("Hello, {}!\n", app.get_name());
 
-    /* INSERT YOUR CODE HERE */
+    Point p1(2, 3);  
+    p1.print();      
+
+    p1.move(1, -1);  
+    p1.print();      
+
+    Point p2;        
+    p2.print();      
 
     return 0; /* exit gracefully*/
 }
